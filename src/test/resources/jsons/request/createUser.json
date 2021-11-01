@@ -1,9 +1,11 @@
 {
+  "url": "",
   "headers": {
     "Content-Type": "application/json"
   },
-  "urlParameters": {
-    "id": "2"
+  "body": {
+    "name": "test",
+    "job": "leader"
   }
 }
 

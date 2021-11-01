@@ -9,9 +9,9 @@ public class User {
     @JsonProperty("email")
     private String email;
     @JsonProperty("first_name")
-    private String firstName;
+    private String first_name;
     @JsonProperty("last_name")
-    private String lastName;
+    private String last_name;
     @JsonProperty("avatar")
     private String avatar;
 
@@ -31,20 +31,20 @@ public class User {
         this.email = email;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setFirstName(String first_name) {
-        this.firstName = first_name;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public void setLastName(String last_name) {
-        this.lastName = last_name;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
     public String getAvatar() {
