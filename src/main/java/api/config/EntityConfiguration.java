@@ -47,6 +47,32 @@ public enum EntityConfiguration {
             return ProjectModificarService.class;
         }
     },
+
+    WORKSPACE_TIMES_ENTRY {
+        @Override
+        public Class<?> getEntityService() {
+            return WorkspaceTimeService.class;
+        }
+    },
+    WORKSPACE_ADD_TIMES{
+        @Override
+        public Class<?> getEntityService() {
+            return WorkspaceAddTimeService.class;
+        }
+    },
+    WORKSPACE_EDIT_TIMES{
+        @Override
+        public Class<?> getEntityService() {
+            return WorkspaceEditTimeService.class;
+        }
+    },
+    WORKSPACE_DELETE_TIMES{
+        @Override
+        public Class<?> getEntityService() {
+            return WorkspaceDeleteTimeService.class;
+        }
+    },
+
     PROJECT_ERROR {
         @Override
         public Class<?> getEntityService() {

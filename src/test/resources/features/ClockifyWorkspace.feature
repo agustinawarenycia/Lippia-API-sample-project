@@ -26,7 +26,7 @@ Feature: Workspace
       | operation | entity                  | jsonName                    | status |
       | GET       | WORKSPACE_SIN_PARAMETRO | workspace/rq_sin_parametros | 200    |
 
-  @Success
+  @Success @Wor
   Scenario Outline: Consulta Workspace resultado exitoso
     Given Mi cuenta creada en clockify y mi X-Api-Key geneada
     When I perform a '<operation>' to '<entity>' endpoint with the '<jsonName>' and ''

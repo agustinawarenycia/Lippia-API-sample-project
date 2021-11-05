@@ -1,0 +1,26 @@
+{
+  "url": "{{base.url}}",
+  "headers": {
+    "X-Api-Key": "{{api-key}}",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "id": "{{id}}",
+    "description": "{{description}}",
+    "tagIds": null,
+    "userId": "{{userId}}",
+    "billable": false,
+    "taskId": null,
+    "projectId": null,
+    "timeInterval": {
+      "start": "2021-10-22T05:17:00Z",
+      "end": "2021-10-23T04:17:00Z",
+      "duration": "PT23H"
+    },
+    "workspaceId": "{{workspaceId}}",
+    "isLocked": false,
+    "customFieldValues": []
+
+  },
+  "endpoint": "/workspaces/{{workspaceId}}/user/{{userId}}/time-entries"
+}
