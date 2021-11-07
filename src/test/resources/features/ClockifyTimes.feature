@@ -37,6 +37,7 @@ Feature: Workspace
     Given Mi cuenta creada en clockify y mi X-Api-Key geneada
     When I perform a '<operation>' to '<entity>' endpoint with the '<jsonName>' and ''
     And get status code <status>
+    #And obtengo el id
     Then I get my times entry
     #Agregar el validator para los time entry
     @Workspace
@@ -56,6 +57,9 @@ Feature: Workspace
       | operation | entity               | jsonName    | status |
       | PUT       | WORKSPACE_EDIT_TIMES | editTime/rq | 200    |
 
+
+#Desde el feature le mando la descripcion y desp comparo la descripcion y que me traiga su id, para desp eliminar
+#En el mismo escenario creo el time entry y desp lo borro
 
   @Sucess @Probar4
   Scenario Outline: Elimino las horas en mi project

@@ -12,8 +12,4 @@ public class BaseService extends MethodsService {
     public static final ThreadLocal<String> DESCRIPTION_TIME_ENTRY = new ThreadLocal<String>();
     public static final ThreadLocal<String> PROJECT_ID = new ThreadLocal<String>();
 
-
-
-
-
 }

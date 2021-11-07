@@ -28,7 +28,7 @@ public class ProjectSteps extends PageSteps {
 
     @And("guardo el id del proyecto")
     public void guardoElIdDelProyecto() {
-        ProjectResponse response = (ProjectResponse) APIManager.getLastResponse().getResponse();
-        ProjectModificarService.ID_P.set(response.getId());
+        ProjectResponse[] response = (ProjectResponse[]) APIManager.getLastResponse().getResponse();
+        ProjectModificarService.ID_P.set(response[0].getId());
     }
 }
