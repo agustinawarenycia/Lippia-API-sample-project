@@ -3,13 +3,8 @@ Feature: Workspace
   QUIERO ver las configuraciones de mi Worckspace
   PARA llevar un buen control de mis horas de trabajo y el de mis empleados
 
- # Lippia
-  #1. Consultar las horas registradas en el proyecto elegido en ítem anterior. -Listo
-  # 2. Agregar horas al proyecto elegido. -Listo
- # 3. Editar la hora registrada en el ítem 2
- # 4. Consultar las horas registradas en el proyecto elegido.
- # 5. Eliminar hora registrada en el ítem 2
 
+  @Sucess @workspace
   Scenario Outline: Consulta Workspace resultado exitoso
     Given Mi cuenta creada en clockify y mi X-Api-Key generada
     When I perform a '<operation>' to '<entity>' endpoint with the '<jsonName>' and ''
@@ -21,20 +16,19 @@ Feature: Workspace
       | GET       | WORKSPACE | workspace/rq | 200    |
 
 
-  @Success @Wor3
+  @Success @project
   Scenario Outline: Consulta Projects resultado exitoso
     Given Mi cuenta creada en clockify y mi X-Api-Key geneada
     When I perform a '<operation>' to '<entity>' endpoint with the '<jsonName>' and ''
     And se obtuvo el status code <status>
-   # Then Obtengo los datos de mi Proyecto
+    Then Obtengo los datos de mi Proyecto
     @Workspace
     Examples:
       | operation | entity         | jsonName         | status |
-      | GET       | SEARCH_PROJECT | searchProject/rq | 200    |
+      | GET       | SEARCH_PROJECTS | searchProject/rq | 200    |
 
-  @Sucess @Probar
-    #Ver como pasar por parametros el id del proyecto
-    #workspaceID userID
+  @Sucess @consultahs
+
   Scenario Outline: Consulta las horas registradas del projecto
     Given Mi cuenta creada en clockify y mi X-Api-Key generada
     When I perform a 'GET' to 'WORKSPACE' endpoint with the 'workspace/rq' and ''
@@ -48,47 +42,66 @@ Feature: Workspace
       | operation | entity                | jsonName | status | nombreWorkspace          |
       | GET       | WORKSPACE_TIMES_ENTRY | time/rq  | 200    | INTEGRADOR_API_WORKSPACE |
 
-  @Succes @Probar2
+  @Succes @agregohs
+
   Scenario Outline: Agrego horas al proyecto
     Given Mi cuenta creada en clockify y mi X-Api-Key generada
     When I perform a 'GET' to 'WORKSPACE' endpoint with the 'workspace/rq' and ''
     And busco el workspace <nombreWorkspace>
     And send project name to search <nombreProjecto>
-    When I perform a 'GET' to 'SEARCH_PROJECT' endpoint with the 'searchProject/rq' and ''
-    #And search project with <nombreProjecto>
+    When I perform a 'GET' to 'SEARCH_PROJECT' endpoint with the 'searchProjectByName/rq' and ''
+    And save project ID
+    And add <nameDescription>
     When I perform a '<operation>' to '<entity>' endpoint with the '<jsonName>' and ''
-    And add <name description>
+    And save new time entry ID
     And get status code <status>
-    #Then I get my times entry
-    #Agregar el validator para los time entry
+    And my user ID
+    When I perform a 'GET' to 'WORKSPACE_TIMES_ENTRY' endpoint with the 'time/rq' and ''
+    Then validate time entry ID
     @Workspace
     Examples:
-      | operation | entity              | jsonName   | status | name description | nombreWorkspace          | nombreProjecto |
-      | POST      | WORKSPACE_ADD_TIMES | addTime/rq | 201    | time_integrador1 | INTEGRADOR_API_WORKSPACE | project        |
+      | operation | entity              | jsonName   | status | nameDescription  | nombreWorkspace          | nombreProjecto |
+      | POST      | WORKSPACE_ADD_TIMES | addTime/rq | 201    | time_integrador6 | INTEGRADOR_API_WORKSPACE | project        |
 
 
-  @Sucess @Probar3
+  @Sucess @editohs
   Scenario Outline: Edito las horas en mi project
-    Given Mi cuenta creada en clockify y mi X-Api-Key geneada
+    Given Mi cuenta creada en clockify y mi X-Api-Key generada
+    When I perform a 'GET' to 'WORKSPACE' endpoint with the 'workspace/rq' and ''
+    And busco el workspace <nombreWorkspace>
+    And send project name to search <nombreProjecto>
+    And my user ID
+    When I perform a 'GET' to 'SEARCH_PROJECT' endpoint with the 'searchProjectByName/rq' and ''
+    And save project ID
+    When I perform a 'GET' to 'WORKSPACE_TIMES_ENTRY' endpoint with the 'time/rq' and ''
+    And search with <descripcion>
+    And new time entry description <NuevaDescripcion>
     When I perform a '<operation>' to '<entity>' endpoint with the '<jsonName>' and ''
     And get status code <status>
-    Then I get my times entry
+    Then confirm time entry change <NuevaDescripcion>
     @Workspace
     Examples:
-      | operation | entity               | jsonName    | status |
-      | PUT       | WORKSPACE_EDIT_TIMES | editTime/rq | 200    |
+      | operation | entity               | jsonName    | status | descripcion      | nombreWorkspace          | nombreProjecto | NuevaDescripcion |
+      | PUT       | WORKSPACE_EDIT_TIMES | editTime/rq | 200    | time_integrador2 | INTEGRADOR_API_WORKSPACE | project        | time_integrador9 |
 
 
-#Desde el feature le mando la descripcion y desp comparo la descripcion y que me traiga su id, para desp eliminar
-#En el mismo escenario creo el time entry y desp lo borro
-#And obtengo el id
-  @Sucess @Probar4
+
+  @Sucess @eliminohs
   Scenario Outline: Elimino las horas en mi project
-    Given Mi cuenta creada en clockify y mi X-Api-Key geneada con otro id
+    Given Mi cuenta creada en clockify y mi X-Api-Key generada
+    When I perform a 'GET' to 'WORKSPACE' endpoint with the 'workspace/rq' and ''
+    And busco el workspace <nombreWorkspace>
+    And send project name to search <nombreProjecto>
+    And my user ID
+    When I perform a 'GET' to 'SEARCH_PROJECT' endpoint with the 'searchProjectByName/rq' and ''
+    And save project ID
+    When I perform a 'GET' to 'WORKSPACE_TIMES_ENTRY' endpoint with the 'time/rq' and ''
+    And select random time entry
     When I perform a '<operation>' to '<entity>' endpoint with the '<jsonName>' and ''
     And get status code <status>
-    Then I get my times entry
+    When I perform a 'GET' to 'WORKSPACE_TIMES_ENTRY' endpoint with the 'time/rq' and ''
+    Then confirm time entry delete
     @Workspace
     Examples:
-      | operation | entity                 | jsonName      | status |
-      | DELETE    | WORKSPACE_DELETE_TIMES | deleteTime/rq | 204    |
+      | operation | entity                 | jsonName      | status | nombreWorkspace          | nombreProjecto |
+      | DELETE    | WORKSPACE_DELETE_TIMES | deleteTime/rq | 204    | INTEGRADOR_API_WORKSPACE | project        |

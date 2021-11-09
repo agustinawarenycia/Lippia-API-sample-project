@@ -31,4 +31,9 @@ public class ProjectSteps extends PageSteps {
         ProjectResponse[] response = (ProjectResponse[]) APIManager.getLastResponse().getResponse();
         ProjectModificarService.ID_P.set(response[0].getId());
     }
+
+    @Then("Obtengo los datos de mi Proyecto")
+    public void obtengoLosDatosDeMiProyecto() {
+        ProjectValidator.validateSearch();
+    }
 }

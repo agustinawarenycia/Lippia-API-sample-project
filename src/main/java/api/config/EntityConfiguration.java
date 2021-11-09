@@ -76,6 +76,11 @@ public enum EntityConfiguration {
         public Class<?> getEntityService() {
             return SearchProjectService.class;
         }
+    },SEARCH_PROJECTS{
+        @Override
+        public Class<?> getEntityService() {
+            return SearchProjectsService.class;
+        }
     },
 
     PROJECT_ERROR {

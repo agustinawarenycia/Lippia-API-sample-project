@@ -2,8 +2,10 @@
   "url": "{{base.url}}",
   "headers": {
     "X-Api-Key": "{{api-key}}",
-    "Content-Type": "application/json",
-    "name": "project"
+    "Content-Type": "application/json"
+  },
+  "urlParameters": {
+    "name": "{{name}}"
   },
   "body": {
   },

@@ -14,7 +14,7 @@ import org.testng.Assert;
 import services.BaseService;
 import services.ProjectModificarService;
 
-import static org.graalvm.compiler.hotspot.replacements.Log.println;
+
 import static org.testng.Assert.assertEquals;
 
 public class TimeEntrySteps extends PageSteps {
@@ -22,11 +22,6 @@ public class TimeEntrySteps extends PageSteps {
     @Given("Mi cuenta creada en clockify y mi X-Api-Key generada")
     public void miCuentaCreadaEnClockifyYMiXApiKeyGenerada() {
         BaseService.API_KEY.set("OTBhZWQ5NmQtOTNiMS00OTQzLTg0MGItNDhiN2FhM2I5YzM3");
-        //BaseService.ID_TIME_ENTRY.set("617f6a70be50802cbbd33529");
-        //BaseService.DESCRIPTION_TIME_ENTRY.set("time_integrador");
-        //BaseService.ID_WORKSPACE.set("617f6a13e2c506460410f645");
-        //BaseService.USER_ID.set("615d83eddabcc04ed1eaa2d1");
-        //BaseService.PROJECT_ID.set("617f6a44be50802cbbd3345b");
 
     }
 
@@ -97,25 +92,76 @@ public class TimeEntrySteps extends PageSteps {
         BaseService.USER_ID.set("615d83eddabcc04ed1eaa2d1");
     }
 
-    @And("search project with (.*)")
-    public void searchProjectWithNombreProjecto(String nombre) {
 
-
-
-        ProjectResponse[] projects = (ProjectResponse[]) APIManager.getLastResponse().getResponse();
-        BaseService.PROJECT_ID.set("");
-
-        for (ProjectResponse project : projects
-        ) {
-
-            if (project.getName().equals(nombre)) {
-                BaseService.PROJECT_ID.set(project.getId());
-
-            }
-        }
-        Assert.assertNotEquals("", BaseService.PROJECT_ID.get(), "No se encontró el proyecto buscado");
+    @And("send project name to search (.*)")
+    public void sendProjectNameToSearchNombreProjecto(String nombre) {
+        BaseService.PROJECT_NAME.set(nombre);
     }
 
+    @And("save project ID")
+    public void saveProjectID() {
+        ProjectResponse[] response = (ProjectResponse[]) APIManager.getLastResponse().getResponse();
+        BaseService.PROJECT_ID.set(response[0].getId());
+    }
+
+    @Then("validate time entry ID")
+    public void validateTimeEntry() {
+        TimeValidator.validateAdd();
+
+    }
+
+    @And("save new time entry ID")
+    public void saveNewTimeEntryID() {
+        timeEntryResponse response = (timeEntryResponse) APIManager.getLastResponse().getResponse();
+        //timeEntryResponse[] response = (timeEntryResponse[]) APIManager.getLastResponse().getResponse();
+        //int e = response.length-1;
+         //BaseService.TIME_ID.set(response[e].getId());
+        BaseService.TIME_ID.set(response.getId());
+    }
+
+    @And("save description proyect (.*)")
+    public void saveDescriptionProyectDescripcion(String name) {
+        BaseService.DESCRIPTION_TIME_ENTRY.set(name);
+    }
+
+    @And("search with (.*)")
+    public void searchWithDescripcion(String name) {
+        timeEntryResponse[] times = (timeEntryResponse[])  APIManager.getLastResponse().getResponse();
+
+        for (timeEntryResponse time: times
+             ) {
+            if(time.getDescription().equals(name)) {
+                BaseService.ID_TIME_ENTRY.set(time.getId());
+            }
+            }
+        }
+
+
+
+    @And("new time entry description (.*)")
+    public void newTimeEntryDescriptionNuevaDescripcion(String name) {
+        BaseService.DESCRIPTION_TIME_ENTRY.set(name);
+    }
+
+    @Then("confirm time entry change (.*)")
+    public void confirmTimeEntryChange(String name) {
+        TimeValidator.validateChange(name);
+    }
+
+    @Then("confirm time entry delete")
+    public void confirmTimeEntryDelete() {
+        TimeValidator.validateDelete();
+    }
+
+
+    @And("select random time entry")
+    public void selectRandomTimeEntry() {
+        timeEntryResponse[] response = (timeEntryResponse[])  APIManager.getLastResponse().getResponse();
+        int sizeTime = response.length;
+        int num = (int) (Math.random() * sizeTime) ;
+        BaseService.ID_TIME_ENTRY.set(response[num].getId());
+    }
 }
+
 
 

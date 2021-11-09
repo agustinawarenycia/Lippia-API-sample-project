@@ -21,6 +21,7 @@ public class WorkspaceEditTimeService extends BaseService{
         params.put("workspaceId",ID_WORKSPACE.get());
         params.put("projectId", PROJECT_ID.get());
         params.put("id", ID_TIME_ENTRY.get());
+        params.put("description", DESCRIPTION_TIME_ENTRY.get());
 
         return params;
     }
