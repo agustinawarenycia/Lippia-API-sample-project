@@ -1,24 +1,36 @@
 package api.model.time_entry;
 
-public class timeEntryResponse {
-    private String id;
-    private String description;
-    private Boolean tagIds;
-    private String userId;
-    private String billable;
-    private Boolean taskId;
-    private Boolean projectId;
-    private timeInterval timeInterval;
-    private String workspaceId;
-    private Boolean isLocked;
-    private  String customFieldValues;
+import java.util.List;
 
-    public String getId() {
-        return id;
+public class timeEntryResponse {
+    private Boolean billable;
+    private String description;
+    private String id;
+    private Boolean isLocked;
+    private String projectId;
+    private List<String> tagIds;
+    private String taskId;
+    private String userId;
+    private timeInterval timeInterval;
+    private String userID;
+    private String workspaceId;
+    private List<CustomFieldValue> customFieldValues;
+    private String start;
+
+    public String getStart() {
+        return start;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public Boolean getBillable() {
+        return billable;
+    }
+
+    public void setBillable(Boolean billable) {
+        this.billable = billable;
     }
 
     public String getDescription() {
@@ -29,60 +41,12 @@ public class timeEntryResponse {
         this.description = description;
     }
 
-    public Boolean getTagIds() {
-        return tagIds;
+    public String getId() {
+        return id;
     }
 
-    public void setTagIds(Boolean tagIds) {
-        this.tagIds = tagIds;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getBillable() {
-        return billable;
-    }
-
-    public void setBillable(String billable) {
-        this.billable = billable;
-    }
-
-    public Boolean getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(Boolean taskId) {
-        this.taskId = taskId;
-    }
-
-    public Boolean getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Boolean projectId) {
-        this.projectId = projectId;
-    }
-
-    public api.model.time_entry.timeInterval getTimeInterval() {
-        return timeInterval;
-    }
-
-    public void setTimeInterval(api.model.time_entry.timeInterval timeInterval) {
-        this.timeInterval = timeInterval;
-    }
-
-    public String getWorkspaceId() {
-        return workspaceId;
-    }
-
-    public void setWorkspaceId(String workspaceId) {
-        this.workspaceId = workspaceId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Boolean getLocked() {
@@ -93,11 +57,67 @@ public class timeEntryResponse {
         isLocked = locked;
     }
 
-    public String getCustomFieldValues() {
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+
+    public List<String> getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(List<String> tagIds) {
+        this.tagIds = tagIds;
+    }
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public api.model.time_entry.timeInterval getTimeInterval() {
+        return timeInterval;
+    }
+
+    public void setTimeInterval(api.model.time_entry.timeInterval timeInterval) {
+        this.timeInterval = timeInterval;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
+    }
+
+    public List<CustomFieldValue> getCustomFieldValues() {
         return customFieldValues;
     }
 
-    public void setCustomFieldValues(String customFieldValues) {
+    public void setCustomFieldValues(List<CustomFieldValue> customFieldValues) {
         this.customFieldValues = customFieldValues;
     }
 }

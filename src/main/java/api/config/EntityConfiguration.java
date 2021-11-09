@@ -71,6 +71,11 @@ public enum EntityConfiguration {
         public Class<?> getEntityService() {
             return WorkspaceDeleteTimeService.class;
         }
+    },  SEARCH_PROJECT{
+        @Override
+        public Class<?> getEntityService() {
+            return SearchProjectService.class;
+        }
     },
 
     PROJECT_ERROR {

@@ -7,5 +7,5 @@
   "body": {
 
   },
-  "endpoint": "/workspaces/{{workspaceId}}/user/{{userId}}/time-entries"
+  "endpoint": "/workspaces/{{workspaceId}}/projects"
 }

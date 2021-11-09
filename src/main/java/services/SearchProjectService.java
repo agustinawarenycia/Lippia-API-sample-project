@@ -1,16 +1,18 @@
 package services;
 
 import api.model.project.ProjectResponse;
-import com.crowdar.core.PropertyManager;
+import api.model.time_entry.timeEntryResponse;
 import com.crowdar.api.rest.Response;
+import com.crowdar.core.PropertyManager;
+
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class ProjectService extends BaseService{
+public class SearchProjectService extends BaseService{
 
-    public static Response post(String jsonName) {
-        return post(jsonName, ProjectResponse.class,setParams());
+    public static Response get(String jsonName) {
+        return get(jsonName, ProjectResponse[].class,setParams());
     }
 
     private static Map<String, String> setParams() {
